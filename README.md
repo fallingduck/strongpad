@@ -9,7 +9,7 @@ Strongpad uses markdown for client side formatting. It is served with the Bottle
 To install:
 
 ```
-$ pip2 install bottle scrypt
+$ sudo pip2 install bottle scrypt
 
 $ git clone https://github.com/fallingduck/strongpad.git
 
