@@ -55,3 +55,6 @@ target/
 
 # PyCharm
 *.idea
+
+# strongpad files
+config.json
