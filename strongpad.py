@@ -30,6 +30,9 @@ def change_password(config={}):
 
 
 if __name__ == '__main__':
+    if not os.path.exists('pads'):
+        os.mkdir('pads')
+
     if not os.path.exists('config.json'):
         change_password()
         print 'Password set!'
