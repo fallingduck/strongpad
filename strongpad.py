@@ -11,6 +11,7 @@ import sys
 import getpass
 
 import src.password
+import src.server
 
 
 def change_password(config={}):
@@ -43,3 +44,5 @@ if __name__ == '__main__':
         change_password(config)
         print 'Password changed!'
         sys.exit(0)
+
+    src.server.start()
