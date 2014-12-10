@@ -4,12 +4,12 @@ A solution for simple, private, and portable remote document editing.
 
 ---
 
-Strongpad uses markdown for client side formatting and Google's diff-match-patch library for syncing the local version of each pad with the remote version. It is served with the Bottle microframework using a standard library threaded WSGI server. Client-server communication is done using AJAX. (These are mostly notes for myself).
+Strongpad uses markdown for client side formatting. It is served with the Bottle microframework using a standard library threaded WSGI server. Client-server communication is done using AJAX. (These are mostly notes for myself).
 
 To install:
 
 ```
-$ pip2 install bottle scrypt diff_match_patch_python
+$ pip2 install bottle scrypt
 
 $ git clone https://github.com/fallingduck/strongpad.git
 
