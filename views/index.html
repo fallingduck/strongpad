@@ -2,18 +2,18 @@
 <html>
     <head>
         <title>Strongpad || Index</title>
-        <link href="/static/global.css" rel="stylesheet" type="text/css" />
+        <link href="/static/index.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-
+    <div id="content">
 % if not files:
-    <i>No files yet!</i>
+        <i>No files yet!</i>
 % else:
 % for name in files:
 % title = name[:-3]
-    <p class="filelist"><a href="/p/{{title}}">{{title}}</a></p>
+        <p><a href="/p/{{title}}" class="filelist">{{title}}</a></p>
 % end
 % end
-
+    </div>
     </body>
 </html>

@@ -46,6 +46,13 @@ def serve_index(session):
     return {'files': files}
 
 
+@bottle.route('/logout')
+@sessions.start
+def logout(session):
+    sessions.destroy()
+    bottle.redirect('/')
+
+
 @bottle.route('/static/<filename>')
 def serve_static(filename):
     return bottle.static_file(filename, root='./views/static')
