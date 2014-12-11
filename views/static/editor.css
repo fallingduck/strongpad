@@ -1,0 +1,6 @@
+body {background-color: #DC9; width: 80%; margin-right: auto; margin-left: auto;}
+
+#container {height: 100%; width: 80%; margin-left: auto; margin-right: auto; position: absolute;}
+#toolbar {margin-bottom: 1%;}
+#editor {float: left; width: 47%; height: 87%; background-color: #FFF; border-radius: 10px; padding: 10px;}
+#viewer {float: right; width: 47%; height: 87%; background-color: #FFF; border-radius: 10px; padding: 10px;}

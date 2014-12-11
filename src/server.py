@@ -46,6 +46,29 @@ def serve_index(session):
     return {'files': files}
 
 
+@bottle.route('/p/<pad>')
+@bottle.view('editor')
+@sessions.start
+def pad_editor(session, pad):
+    if not session.get('in'):
+        bottle.redirect('/')
+
+    path = 'pads/{0}.md'.format(pad)
+    response = {}
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            response['data'] = f.read()
+        with open('config.json') as f:
+            published = json.load(f)['published']
+        response['published'] = pad in published
+
+    else:
+        response['data'] = ''
+        response['published'] = False
+
+    return response
+
+
 @bottle.route('/logout')
 @sessions.start
 def logout(session):

@@ -14,7 +14,12 @@ import src.password
 import src.server
 
 
-def change_password(config={}):
+default_config = {
+    'published': []
+}
+
+
+def change_password(config=default_config):
     password = getpass.getpass(prompt='Enter new password: ')
     if getpass.getpass(prompt='Confirm password: ') != password:
         print 'Passwords did not match!'

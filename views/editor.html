@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strongpad || Editor</title>
+        <link href="/static/editor.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="container">
+            <div id="toolbar">
+                <input type="button" value="Save" id="savebutton" onclick="saveFile();" />
+                <input type="button" value="Reload" id="reloadbutton" onclick="reloadFile();" />
+                <input type="button" value="{{'Unpublish' if published else 'Publish'}}" id="deletebutton" onclick="deleteFile();" />
+            </div>
+            <div id="editor" contenteditable="true">{{data}}</div>
+            <div id="viewer"></div>
+        </div>
+    </body>
+</html>
