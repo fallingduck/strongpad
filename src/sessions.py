@@ -37,14 +37,16 @@ def start(func):
             sid = hexlify(urandom(32))
             response.set_cookie('PYSESSID', sid)
             sid = sha1('%s%s' % (sid, request['REMOTE_ADDR'])).hexdigest()
+            _data[sid]['__date'] = int(time()) + 1800
         else:
             sid = request.get_cookie('PYSESSID')
             sid = sha1('%s%s' % (sid, request['REMOTE_ADDR'])).hexdigest()
-        _data[sid]['__date'] = int(time()) + 1800
 
         for ssid in dict(_data):
             if _data[ssid]['__date'] < time():
                 del _data[ssid]
+
+        _data[sid]['__date'] = int(time()) + 1800
 
         return func(_data[sid], *a, **k)
     return wrapper
