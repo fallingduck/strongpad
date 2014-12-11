@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strongpad || Index</title>
+        <link href="/static/global.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+
+% if not files:
+    <i>No files yet!</i>
+% else:
+% for name in files:
+% title = name[:-3]
+    <p class="filelist"><a href="/p/{{title}}">{{title}}</a></p>
+% end
+% end
+
+    </body>
+</html>

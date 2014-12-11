@@ -3,7 +3,7 @@ from wsgiref.simple_server import WSGIServer, make_server
 
 import bottle
 import json
-import binascii
+import os
 
 import sessions
 import password
@@ -23,6 +23,7 @@ def login_page(session):
 def process_login(session):
     if session.get('in'):
         bottle.redirect('/index')
+
     p = bottle.request.forms.get('password')
     with open('config.json') as f:
         passw, salt = json.load(f)['password']
@@ -39,6 +40,10 @@ def process_login(session):
 def serve_index(session):
     if not session.get('in'):
         bottle.redirect('/')
+
+    files = os.listdir('pads/')
+    files.sort(key=lambda f: os.stat(os.path.join('pads', f)).st_mtime, reverse=True)
+    return {'files': files}
 
 
 @bottle.route('/static/<filename>')
