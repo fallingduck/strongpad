@@ -111,7 +111,7 @@ def save_pad(session, pad):
     return 'The operation failed!'
 
 
-@bottle.route('/p/<pad>/rename/<newpad>')
+@bottle.route('/p/<pad>/rename/<newpad>', method='POST')
 @sessions.start
 def rename_pad(session, pad, newpad):
     if not session.get('in'):
@@ -153,7 +153,7 @@ def delete_pad(session, pad):
     bottle.redirect('/index')
 
 
-@bottle.route('/p/<pad>/publish')
+@bottle.route('/p/<pad>/publish', method='POST')
 @sessions.start
 def publish_pad(session, pad):
     if not session.get('in'):
@@ -168,7 +168,7 @@ def publish_pad(session, pad):
     return 'This pad is now available for viewing!'
 
 
-@bottle.route('/p/<pad>/unpublish')
+@bottle.route('/p/<pad>/unpublish', method='POST')
 @sessions.start
 def unpublish_pad(session, pad):
     if not session.get('in'):

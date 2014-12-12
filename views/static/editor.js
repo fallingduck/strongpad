@@ -25,7 +25,7 @@ function renameFile() {
         return false;
     }
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", document.URL + '/rename/' + newpad, false)
+    xhr.open("POST", document.URL + '/rename/' + newpad, false)
     xhr.send();
     if (xhr.responseText == "The operation succeeded!") {
         window.location = "/p/" + newpad;
@@ -37,7 +37,7 @@ function renameFile() {
 function publishFile() {
     var xhr = new XMLHttpRequest();
     if (published) {
-        xhr.open("GET", document.URL + '/unpublish', false);
+        xhr.open("POST", document.URL + '/unpublish', false);
         xhr.send();
         if (xhr.responseText == "This pad is no longer available for viewing!") {
             document.getElementById("publishbutton").value = "Publish";
@@ -45,7 +45,7 @@ function publishFile() {
         }
         window.alert(xhr.responseText);
     } else {
-        xhr.open("GET", document.URL + '/publish', false);
+        xhr.open("POST", document.URL + '/publish', false);
         xhr.send();
         if (xhr.responseText == "This pad is now available for viewing!") {
             document.getElementById("publishbutton").value = "Unpublish";
