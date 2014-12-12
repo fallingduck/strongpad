@@ -73,7 +73,7 @@ def pad_editor(session, pad):
 @sessions.start
 def save_pad(session, pad):
     if not session.get('in'):
-        bottle.redirect('/')
+        return 'You are not logged in, or your session expired!'
 
     data = bottle.request.forms.get('data')
     path = 'pads/{0}.md'.format(pad)
@@ -82,6 +82,35 @@ def save_pad(session, pad):
             f.write(data)
         return 'The operation succeeded!'
     return 'The operation failed!'
+
+
+@bottle.route('/p/<pad>/rename/<newpad>')
+@sessions.start
+def rename_pad(session, pad, newpad):
+    if not session.get('in'):
+        return 'You are not logged in, or your session expired!'
+
+    oldpath = 'pads/{0}.md'.format(pad)
+    newpath = 'pads/{0}.md'.format(newpad)
+    if not os.path.exists(newpath) and os.path.exists(oldpath):
+        with open(oldpath, 'r') as f_in:
+            with open(newpath, 'w') as f_out:
+                f_out.write(f_in.read())
+        os.unlink(oldpath)
+        return 'The operation succeeded!'
+    return 'The operation failed!'
+
+
+@bottle.route('/p/<pad>/delete')
+@sessions.start
+def delete_pad(session, pad):
+    if not session.get('in'):
+        bottle.redirect('/')
+
+    path = 'pads/{0}.md'.format(pad)
+    if os.path.exists(path):
+        os.unlink(path)
+    bottle.redirect('/index')
 
 
 @bottle.route('/logout')

@@ -3,11 +3,17 @@
     <head>
         <title>Strongpad || Index</title>
         <link href="/static/index.css" rel="stylesheet" type="text/css" />
+        <script src="/static/index.js" type="text/javascript"></script>
     </head>
     <body>
     <div id="content">
+        <div id="toolbar">
+            <input type="button" value="New..." onclick="newFile();" />
+            <input type="button" value="Logout" onclick="window.location = '/logout';" />
+        </div>
+        <br />
 % if not files:
-        <i>No files yet!</i>
+        <p><i>No files yet!</i></p>
 % else:
 % for name in files:
 % title = name[:-3]

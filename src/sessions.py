@@ -46,7 +46,7 @@ def start(func):
             if _data[ssid]['__date'] < time():
                 del _data[ssid]
 
-        _data[sid]['__date'] = int(time()) + 1800
+        _data[sid]['__date'] = int(time()) + 3600
 
         return func(_data[sid], *a, **k)
     return wrapper

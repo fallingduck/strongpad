@@ -13,6 +13,7 @@
                 <input type="button" value="{{'Unpublish' if published else 'Publish'}}" id="publishbutton" onclick="publishFile();" />
                 <input type="button" value="Reload" id="reloadbutton" onclick="window.location.reload();" />
                 <input type="button" value="Delete" id="deletebutton" onclick="deleteFile();" />
+                <input type="button" value="Index" id="indexbutton" onclick="window.location = '/index';" />
                 <input type="button" value="Logout" id="logoutbutton" onclick="window.location = '/logout';" />
             </div>
             <div id="editor" contenteditable="true"></div>
@@ -20,6 +21,7 @@
         </div>
         <script type="text/javascript">
             document.getElementById('editor').innerText = "{{!data}}";
+            var published = {{str(published).lower()}};
         </script>
         <script src="/static/editor.js" type="text/javascript"></script>
     </body>
