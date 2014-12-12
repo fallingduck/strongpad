@@ -1,10 +1,12 @@
 # strongpad
 
-A solution for simple, private, and portable remote document editing.
+> With a simplistic interface that lets you hand-craft your next manifesto from anywhere in the world using markdown, strongpad packs a powerful punch, despite its minimalism.
+
+> &mdash; <cite>Me</cite>
+
+Software like Etherpad is designed mainly for collaborative editing. These projects end up essentially as real-time wikis. Strongpad takes a different approach. Strongpad is your virtual bedroom. Using strongpad, you write in private, as an individual. Your strongpad instance is protected by a password, so only you can write using it. If you want to share one of your documents with a friend, strongpad can make it available for viewing, but not for editing. You can make a document private again at any time.
 
 ---
-
-Strongpad uses markdown for client side formatting. It is served with the Bottle microframework using a standard library threaded WSGI server. Client-server communication is done using AJAX. (These are mostly notes for myself).
 
 To install:
 
