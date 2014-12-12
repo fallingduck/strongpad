@@ -57,7 +57,7 @@ def pad_editor(session, pad):
     response = {}
     if os.path.exists(path):
         with open(path, 'r') as f:
-            response['data'] = f.read()
+            response['data'] = f.read().replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
         with open('config.json') as f:
             published = json.load(f)['published']
         response['published'] = pad in published
@@ -67,6 +67,21 @@ def pad_editor(session, pad):
         response['published'] = False
 
     return response
+
+
+@bottle.route('/p/<pad>/save', method='POST')
+@sessions.start
+def save_pad(session, pad):
+    if not session.get('in'):
+        bottle.redirect('/')
+
+    data = bottle.request.forms.get('data')
+    path = 'pads/{0}.md'.format(pad)
+    if data is not None:
+        with open(path, 'w') as f:
+            f.write(data)
+        return 'The operation succeeded!'
+    return 'The operation failed!'
 
 
 @bottle.route('/logout')
