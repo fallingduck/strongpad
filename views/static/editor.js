@@ -58,3 +58,10 @@ function publishFile() {
 function deleteFile() {
     window.location = document.URL + "/delete";
 }
+
+document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    saveFile();
+  }
+}, false);
