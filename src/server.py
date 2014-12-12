@@ -51,7 +51,7 @@ def serve_index(session):
 @sessions.start
 def pad_editor(session, pad):
     if not session.get('in'):
-        bottle.redirect('/')
+        bottle.redirect('/p/{0}/'.format(pad))
 
     path = 'pads/{0}.md'.format(pad)
     response = {}
@@ -67,6 +67,33 @@ def pad_editor(session, pad):
         response['published'] = False
 
     return response
+
+
+@bottle.route('/p/<pad>/')
+@bottle.view('viewer')
+def pad_viewer(pad):
+    with open('config.json', 'r') as f:
+        published = json.load(f)['published']
+    if pad in published:
+        path = 'pads/{0}.md'.format(pad)
+        with open(path, 'r') as f:
+            return {'data': f.read().replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')}
+    else:
+        bottle.redirect('/index')
+
+
+@bottle.route('/p/<pad>/raw')
+@bottle.route('/p/<pad>/md')
+def pad_viewer(pad):
+    with open('config.json', 'r') as f:
+        published = json.load(f)['published']
+    bottle.response.content_type = 'text/plain'
+    if pad in published:
+        path = 'pads/{0}.md'.format(pad)
+        with open(path, 'r') as f:
+            return f.read()
+    else:
+        return ''
 
 
 @bottle.route('/p/<pad>/save', method='POST')
@@ -97,6 +124,13 @@ def rename_pad(session, pad, newpad):
             with open(newpath, 'w') as f_out:
                 f_out.write(f_in.read())
         os.unlink(oldpath)
+        with open('config.json', 'r') as f:
+            config = json.load(f)
+        if pad in config['published']:
+            config['published'].remove(pad)
+            config['published'].append(newpad)
+        with open('config.json', 'w') as f:
+            json.dump(config, f, indent=2)
         return 'The operation succeeded!'
     return 'The operation failed!'
 
@@ -110,7 +144,43 @@ def delete_pad(session, pad):
     path = 'pads/{0}.md'.format(pad)
     if os.path.exists(path):
         os.unlink(path)
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    if pad in config['published']:
+        config['published'].remove(pad)
+    with open('config.json', 'w') as f:
+        json.dump(config, f, indent=2)
     bottle.redirect('/index')
+
+
+@bottle.route('/p/<pad>/publish')
+@sessions.start
+def publish_pad(session, pad):
+    if not session.get('in'):
+        return 'You are not logged in, or your session expired!'
+
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    if pad not in config['published']:
+        config['published'].append(pad)
+    with open('config.json', 'w') as f:
+        json.dump(config, f, indent=2)
+    return 'This pad is now available for viewing!'
+
+
+@bottle.route('/p/<pad>/unpublish')
+@sessions.start
+def unpublish_pad(session, pad):
+    if not session.get('in'):
+        return 'You are not logged in, or your session expired!'
+
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    if pad in config['published']:
+        config['published'].remove(pad)
+    with open('config.json', 'w') as f:
+        json.dump(config, f, indent=2)
+    return 'This pad is no longer available for viewing!'
 
 
 @bottle.route('/logout')

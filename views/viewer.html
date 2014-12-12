@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Strongpad || Viewer</title>
+        <link href="/static/viewer.css" rel="stylesheet" type="text/css" />
+        <script src="/static/marked.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script type="text/javascript">
+            document.getElementById('container').innerHTML = marked("{{!data}}");
+        </script>
+    </body>
+</html>

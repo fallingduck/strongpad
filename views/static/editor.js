@@ -34,6 +34,27 @@ function renameFile() {
     }
 }
 
+function publishFile() {
+    var xhr = new XMLHttpRequest();
+    if (published) {
+        xhr.open("GET", document.URL + '/unpublish', false);
+        xhr.send();
+        if (xhr.responseText == "This pad is no longer available for viewing!") {
+            document.getElementById("publishbutton").value = "Publish";
+            published = false;
+        }
+        window.alert(xhr.responseText);
+    } else {
+        xhr.open("GET", document.URL + '/publish', false);
+        xhr.send();
+        if (xhr.responseText == "This pad is now available for viewing!") {
+            document.getElementById("publishbutton").value = "Unpublish";
+            published = true;
+        }
+        window.alert(xhr.responseText);
+    }
+}
+
 function deleteFile() {
     window.location = document.URL + "/delete";
 }
