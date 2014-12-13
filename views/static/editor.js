@@ -12,7 +12,7 @@ function saveFile() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", document.URL + '/save', false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("data=" + editor.innerText);
+    xhr.send("data=" + window.encodeURIComponent(editor.innerText));
     window.alert(xhr.responseText);
 }
 
