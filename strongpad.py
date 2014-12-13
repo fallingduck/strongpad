@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
 __author__ = 'Jack VanDrunen'
-__version__ = 'pre-alpha'
+__version__ = '0.1'
 __license__ = 'MIT'
 
 
