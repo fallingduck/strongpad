@@ -71,15 +71,18 @@ def pad_editor(session, pad):
 
 @bottle.route('/p/<pad>/')
 @bottle.view('viewer')
-def pad_viewer(pad):
+@sessions.start
+def pad_viewer(session, pad):
     with open('config.json', 'r') as f:
         published = json.load(f)['published']
     if pad in published:
         path = 'pads/{0}.md'.format(pad)
         with open(path, 'r') as f:
             return {'data': f.read().replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')}
+    elif session.get('in'):
+        bottle.redirect('/p/{0}'.format(pad))
     else:
-        bottle.redirect('/index')
+        bottle.redirect('/')
 
 
 @bottle.route('/p/<pad>/raw')
@@ -93,7 +96,7 @@ def pad_viewer(pad):
         with open(path, 'r') as f:
             return f.read()
     else:
-        return ''
+        bottle.abort(404)
 
 
 @bottle.route('/p/<pad>/save', method='POST')
@@ -196,11 +199,18 @@ def serve_static(filename):
 
 
 @bottle.error(404)
+def not_found(e):
+    return '404: Not Found'
+
+
 @bottle.error(403)
-@bottle.error(401)
+def forbidden(e):
+    return '403: Forbidden'
+
+
 @bottle.error(500)
-def error_page(e):
-    return 'Error!'
+def server_error(e):
+    return '500: Internal Server Error'
 
 
 class ThreadingWSGIServer(WSGIServer, ThreadingMixIn):
