@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Strongpad || Index</title>
+        <title>Strongpad || Uploads</title>
         <link href="/static/index.css" rel="stylesheet" type="text/css" />
-        <script src="/static/index.js" type="text/javascript"></script>
     </head>
     <body>
     <div id="content">
         <div id="toolbar">
-            <input type="button" value="New..." onclick="newFile();" />
-            <input type="button" value="Uploads" onclick="window.location = '/uploads';" />
+            <input type="button" value="Index" onclick="window.location = '/index';" />
             <input type="button" value="Logout" onclick="window.location = '/logout';" />
         </div>
         <br />
 % if not files:
         <p><i>No files yet!</i></p>
 % else:
-% for name in files:
-% title = name[:-3]
-        <p><a href="/p/{{title}}" class="filelist">{{title}}</a></p>
+% for title in files:
+        <p>
+            <input type="button" value="Delete" onclick="window.location = '/uploads/{{title}}/delete';" />&nbsp;
+            <a href="/uploads/{{title}}" class="filelist">{{title}}</a>
+        </p>
 % end
 % end
     </div>

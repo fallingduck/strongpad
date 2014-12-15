@@ -216,6 +216,31 @@ def upload_image(session):
     return 'Done!'
 
 
+@bottle.route('/uploads')
+@bottle.route('/uploads/')
+@bottle.view('uploads')
+@sessions.start
+def serve_index(session):
+    if not session.get('in'):
+        bottle.redirect('/')
+
+    files = os.listdir('uploads/')
+    files.sort(key=lambda f: os.stat(os.path.join('uploads', f)).st_mtime, reverse=True)
+    return {'files': files}
+
+
+@bottle.route('/uploads/<filename>/delete')
+@sessions.start
+def delete_pad(session, filename):
+    if not session.get('in'):
+        bottle.redirect('/')
+
+    path = 'uploads/{0}'.format(filename)
+    if os.path.exists(path):
+        os.unlink(path)
+    bottle.redirect('/uploads')
+
+
 @bottle.route('/logout')
 @sessions.start
 def logout(session):
