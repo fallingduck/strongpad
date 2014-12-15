@@ -59,3 +59,4 @@ target/
 # strongpad files
 config.json
 pads/
+uploads/

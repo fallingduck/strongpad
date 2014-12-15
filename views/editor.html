@@ -8,13 +8,19 @@
     <body onbeforeunload="return 'Be sure you have saved all your work!';">
         <div id="container">
             <div id="toolbar">
-                <input type="button" value="Save" id="savebutton" onclick="saveFile();" />
-                <input type="button" value="Rename" id="renamebutton" onclick="renameFile();" />
-                <input type="button" value="{{'Unpublish' if published else 'Publish'}}" id="publishbutton" onclick="publishFile();" />
-                <input type="button" value="Reload" id="reloadbutton" onclick="window.location.reload();" />
-                <input type="button" value="Delete" id="deletebutton" onclick="deleteFile();" />
-                <input type="button" value="Index" id="indexbutton" onclick="window.location = '/index';" />
-                <input type="button" value="Logout" id="logoutbutton" onclick="window.location = '/logout';" />
+                <form enctype="multipart/form-data" action="/upload" method="post" target="_blank" id="uploadform">
+                    <input type="file" name="upload" id="uploadfield" />
+                    <input type="button" value="Upload Image" id="uploadbutton" onclick="uploadImage();" />
+                </form>
+                <div id="utilities">
+                    <input type="button" value="Save" id="savebutton" onclick="saveFile();" />
+                    <input type="button" value="Rename" id="renamebutton" onclick="renameFile();" />
+                    <input type="button" value="{{'Unpublish' if published else 'Publish'}}" id="publishbutton" onclick="publishFile();" />
+                    <input type="button" value="Reload" id="reloadbutton" onclick="window.location.reload();" />
+                    <input type="button" value="Delete" id="deletebutton" onclick="deleteFile();" />
+                    <input type="button" value="Index" id="indexbutton" onclick="window.location = '/index';" />
+                    <input type="button" value="Logout" id="logoutbutton" onclick="window.location = '/logout';" />
+                </div>
             </div>
             <div id="editor" contenteditable="true"></div>
             <div id="viewer"></div>

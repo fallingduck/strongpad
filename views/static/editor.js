@@ -59,6 +59,14 @@ function deleteFile() {
     window.location = document.URL + "/delete";
 }
 
+function uploadImage() {
+    var uploader = document.getElementById("uploadfield");
+    var filename = uploader.value.split("\\").pop();
+    var form = document.getElementById("uploadform");
+    form.submit();
+    editor.innerText = editor.innerText + "![Alt text](/uploads/" + filename + ")";
+}
+
 document.addEventListener("keydown", function(e) {
   if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
     e.preventDefault();

@@ -206,6 +206,16 @@ def unpublish_pad(session, pad):
     return 'This pad is no longer available for viewing!'
 
 
+@bottle.route('/upload', method='POST')
+@sessions.start
+def upload_image(session):
+    if not session.get('in'):
+        bottle.abort(404)
+    upload = bottle.request.files.get('upload')
+    upload.save('./uploads')
+    return 'Done!'
+
+
 @bottle.route('/logout')
 @sessions.start
 def logout(session):
@@ -216,6 +226,11 @@ def logout(session):
 @bottle.route('/static/<filename>')
 def serve_static(filename):
     return bottle.static_file(filename, root='./views/static')
+
+
+@bottle.route('/uploads/<filename>')
+def serve_static(filename):
+    return bottle.static_file(filename, root='./uploads')
 
 
 @bottle.error(404)
