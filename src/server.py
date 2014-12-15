@@ -1,13 +1,29 @@
 from SocketServer import ThreadingMixIn
 from wsgiref.simple_server import WSGIServer, make_server
 
-import bottle
 import json
 import os
-import markdown2
-
+import sys
 import sessions
-import password
+
+
+try:
+    import bottle
+except ImportError:
+    print 'Missing dependency: bottle'
+    sys.exit(1)
+
+try:
+    import markdown2
+except ImportError:
+    print 'Missing dependency: markdown2'
+    sys.exit(1)
+
+try:
+    import password
+except ImportError:
+    print 'Missing dependency: scrypt'
+    sys.exit(1)
 
 
 @bottle.route('/')

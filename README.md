@@ -11,18 +11,18 @@ Software like Etherpad is designed mainly for collaborative editing. These proje
 To install:
 
 ```
-$ sudo pip2 install bottle scrypt
+$ sudo pip2 install bottle scrypt markdown2
 
 $ git clone https://github.com/fallingduck/strongpad.git
 
 $ cd strongpad
 
-$ python2 strongpad.py
+$ ./strongpad
 ```
 
 The first time you start strongpad up, it will ask you to set a password. This password will be needed every time you log into the server from the web interface. To change this password at any time, you can run:
 
-`$ python2 strongpad.py password`
+`$ ./strongpad password`
 
 And it will prompt you for a new password.
 
