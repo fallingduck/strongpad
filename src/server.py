@@ -4,6 +4,7 @@ from wsgiref.simple_server import WSGIServer, make_server
 import bottle
 import json
 import os
+import markdown2
 
 import sessions
 import password
@@ -85,16 +86,19 @@ def pad_viewer(session, pad):
         bottle.redirect('/')
 
 
-@bottle.route('/p/<pad>/raw')
-@bottle.route('/p/<pad>/md')
-def pad_viewer(pad):
+@bottle.route('/p/<pad>/<mode:re:(md|html)>')
+@sessions.start
+def md_viewer(session, pad, mode):
     with open('config.json', 'r') as f:
         published = json.load(f)['published']
-    bottle.response.content_type = 'text/plain'
-    if pad in published:
+    if pad in published or session.get('in'):
         path = 'pads/{0}.md'.format(pad)
-        with open(path, 'r') as f:
-            return f.read()
+        if mode == 'html':
+            return markdown2.markdown_path(path)
+        else:
+            with open(path, 'r') as f:
+                bottle.response.content_type = 'text/plain'
+                return f.read()
     else:
         bottle.abort(404)
 
