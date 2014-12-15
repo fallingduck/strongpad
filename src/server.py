@@ -212,6 +212,7 @@ def upload_image(session):
     if not session.get('in'):
         bottle.abort(404)
     upload = bottle.request.files.get('upload')
+    upload.filename = bottle.request.forms.get('filename')
     upload.save('./uploads')
     return 'Done!'
 

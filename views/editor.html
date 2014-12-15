@@ -9,7 +9,8 @@
         <div id="container">
             <div id="toolbar">
                 <form enctype="multipart/form-data" action="/upload" method="post" target="_blank" id="uploadform">
-                    <input type="file" name="upload" id="uploadfield" />
+                    <input type="file" name="upload" id="uploadfield" onchange="updateFilename();" />
+                    <input type="text" name="filename" id="filenamefield" placeholder="File Name" />
                     <input type="button" value="Upload Image" id="uploadbutton" onclick="uploadImage();" />
                 </form>
                 <div id="utilities">

@@ -60,11 +60,17 @@ function deleteFile() {
 }
 
 function uploadImage() {
-    var uploader = document.getElementById("uploadfield");
-    var filename = uploader.value.split("\\").pop();
+    var namefield = document.getElementById("filenamefield");
+    var filename = namefield.value;
     var form = document.getElementById("uploadform");
     form.submit();
     editor.innerText = editor.innerText + "![Alt text](/uploads/" + filename + ")";
+}
+
+function updateFilename() {
+    var namefield = document.getElementById("filenamefield");
+    var uploader = document.getElementById("uploadfield");
+    namefield.value = uploader.value.split("\\").pop();
 }
 
 document.addEventListener("keydown", function(e) {
