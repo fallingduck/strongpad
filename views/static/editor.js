@@ -73,9 +73,20 @@ function updateFilename() {
     namefield.value = uploader.value.split("\\").pop();
 }
 
+function printFile() {
+    window.open(document.URL + "/html", "_blank");
+}
+
 document.addEventListener("keydown", function(e) {
   if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
     e.preventDefault();
     saveFile();
+  }
+}, false);
+
+document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 80 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    e.preventDefault();
+    printFile();
   }
 }, false);
