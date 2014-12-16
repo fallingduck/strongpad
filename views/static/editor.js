@@ -13,7 +13,11 @@ function saveFile() {
     xhr.open("POST", document.URL + '/save', false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + window.encodeURIComponent(editor.innerText));
-    window.alert(xhr.responseText);
+    if (xhr.responseText == "You are not logged in, or your session expired!") {
+        window.open("/", "_blank");
+    } else {
+        window.alert(xhr.responseText);
+    }
 }
 
 function renameFile() {
