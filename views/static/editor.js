@@ -75,6 +75,8 @@ function uploadImage() {
     var form = document.getElementById("uploadform");
     form.submit();
     editor.innerText = editor.innerText + "![Alt text](/uploads/" + filename + ")";
+    editor.scrollTop = editor.scrollHeight;
+    updateViewer();
 }
 
 function updateFilename() {
