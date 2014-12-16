@@ -1,9 +1,15 @@
 var editor = document.getElementById('editor');
 var viewer = document.getElementById('viewer');
 
+function updateViewerHeight() {
+    // Normalize the editor height
+    norm = (editor.scrollTop * viewer.scrollHeight) / editor.scrollHeight;
+    viewer.scrollTop = norm;
+}
+
 function updateViewer() {
     viewer.innerHTML = marked(editor.innerText);
-    viewer.scrollTop = viewer.scrollHeight;
+    updateViewerHeight();
 }
 editor.onkeyup = updateViewer;
 updateViewer();
